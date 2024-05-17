@@ -18,38 +18,44 @@ def banner():
         print(f"Apis: {laranja}{apis}\n")
 
 def hacker_target(domain):
-        req = requests.get(f"https://api.hackertarget.com/hostsearch/?q={domain}")
-        ht = req.text
-        ht = ht.split()
-        for i in ht:
-                p = re.findall(",\d+\.?\d+\.?\d+\.?\d+", i)
-                p = "".join(p)
-                i = i.replace(p, "")
-                subs_total.append(i)
+        try:
+                req = requests.get(f"https://api.hackertarget.com/hostsearch/?q={domain}")
+                ht = req.text
+                ht = ht.split()
+                for i in ht:
+                        p = re.findall(",\d+\.?\d+\.?\d+\.?\d+", i)
+                        p = "".join(p)
+                        i = i.replace(p, "")
+                        subs_total.append(i)
+        except:pass
 
 def alien_vault(domain):
-        req = requests.get(f"https://otx.alienvault.com/api/v1/indicators/domain/{domain}/passive_dns")
-        alien = req.json()
-        alien = json.dumps(alien)
-        alien = json.loads(alien)
+        try:
+                req = requests.get(f"https://otx.alienvault.com/api/v1/indicators/domain/{domain}/passive_dns")
+                alien = req.json()
+                alien = json.dumps(alien)
+                alien = json.loads(alien)
 
-        lists = alien["passive_dns"]
+                lists = alien["passive_dns"]
 
-        for list in lists:
-                subs = list["hostname"]
-                subs_total.append(subs)
+                for list in lists:
+                        subs = list["hostname"]
+                        subs_total.append(subs)
+        except:pass
 
 def crtsh(domain):
-        req = requests.get(f"https://crt.sh/?q={domain}&output=json")
-        crt = req.json()
-        crt = json.dumps(crt)
-        crt = json.loads(crt)
+        try:
+                req = requests.get(f"https://crt.sh/?q={domain}&output=json")
+                crt = req.json()
+                crt = json.dumps(crt)
+                crt = json.loads(crt)
 
-        for index in crt:
-                common_name = index["common_name"]
-                name_value = index["name_value"]
-                subs_total.append(common_name)
-                subs_total.append(name_value)
+                for index in crt:
+                        common_name = index["common_name"]
+                        name_value = index["name_value"]
+                        subs_total.append(common_name)
+                        subs_total.append(name_value)
+        except:pass
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-d", "--domain", required=True, help="coloque o domínio")
