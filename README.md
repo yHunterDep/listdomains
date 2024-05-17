@@ -4,6 +4,13 @@ ListDomains is a subdomain enumeration tool, using passive techniques.
 # Version
 - 0.1
 
+# Instalation
+```sh
+git clone https://github.com/yHunterDep/listdomains/
+cd listdomains
+bash setup.sh
+```
+
 # Help of Tool
 ```
 python3 listdomains.py -h
