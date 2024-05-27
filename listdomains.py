@@ -10,13 +10,15 @@ laranja = "\033[33m"
 reset = "\033[0;0m"
 
 criador = "HunterDep"
-versão = "0.1"
-apis = "HackerTarget, AlienVault, Crtsh"
+versão = "0.2"
+github = "https://github.com/yHunterDep"
+apis = "HackerTarget, AlienVault, Urlscan, Crtsh"
 
 def banner():
-        print(verde + pyfiglet.figlet_format("ListDomains"))
+        print(verde + pyfiglet.figlet_format("ListDomains", font="slant"))
         print(f"Coded by {vermelho + criador + verde}")
         print(f"Versão: {vermelho + versão + verde}")
+        print(f"Github: {laranja + github + verde}")
         print(f"Apis: {laranja}{apis}\n")
 
 def hacker_target(domain):
@@ -44,6 +46,20 @@ def alien_vault(domain):
                         subs = list["hostname"]
                         subs_total.append(subs)
         except:pass
+
+def urlscan(domain):
+        try:
+                req = requests.get(f"https://urlscan.io/api/v1/search/?q=domain:{domain}")
+                urlscan = req.json()
+                urlscan = json.dumps(urlscan)
+                urlscan = json.loads(urlscan)
+                results = urlscan["results"]
+
+                for result in results:
+                        result = result["task"]["domain"]
+                        subs_total.append(result)
+
+        except Exception as x:print(x)
 
 def crtsh(domain):
         try:
@@ -77,6 +93,7 @@ if not sil:
 hacker_target(domain)
 alien_vault(domain)
 crtsh(domain)
+urlscan(domain)
 
 subs_total = [x for x in subs_total if x is not None]
 subs_total = [x.lower() for x in subs_total]
@@ -84,7 +101,7 @@ subs_total = [x.strip().split("\n") for x in subs_total]
 subs_total = [parte for item in subs_total for parte in item]
 
 if subs:
-        subs_total = [x for x in subs_total if domain in x]
+        subs_total = [x for x in subs_total if x.endswith(domain)]
 
 subs_total = set(subs_total)
 subs_total = "\n".join(subs_total)
