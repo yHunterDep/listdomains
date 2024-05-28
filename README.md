@@ -2,7 +2,9 @@
 ListDomains is a subdomain enumeration tool, using passive techniques.
 
 # Version
-- 0.1
+- 0.2
+- New Api: Urlscan
+- Updated Banner
 
 # Instalation
 ```sh
