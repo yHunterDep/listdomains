@@ -59,7 +59,7 @@ def urlscan(domain):
                         result = result["task"]["domain"]
                         subs_total.append(result)
 
-        except Exception as x:print(x)
+        except:pass
 
 def crtsh(domain):
         try:
