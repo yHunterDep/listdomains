@@ -27,7 +27,7 @@ def hacker_target(domain):
                 ht = req.text
                 ht = ht.split()
                 for i in ht:
-                        p = re.findall(",\d+\.?\d+\.?\d+\.?\d+", i)
+                        p = re.findall(r",\d+\.?\d+\.?\d+\.?\d+", i)
                         p = "".join(p)
                         i = i.replace(p, "")
                         subs_total.append(i)
